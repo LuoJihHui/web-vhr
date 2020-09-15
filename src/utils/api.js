@@ -6,11 +6,18 @@ axios.interceptors.response.use(success => {
      * 业务错误
      */
     let status = success.status;
+    let data = success.data.data;
     if (status && status === 200 && success.data.code === -1) {
-        Message.error({message: success.data.data});
+        Message.error({message: data});
         return;
     }
-    console.log(success);
+    if (data) {
+        if (data.name != null) {
+            Message.success({message: "登录成功"})
+        } else {
+            Message.success({message: data})
+        }
+    }
     return success.data;
 }, error => {
     let status = error.response.status;
@@ -39,6 +46,12 @@ axios.interceptors.response.use(success => {
  */
 let base = '';
 
+/**
+ * 封装key-value传参
+ * @date 2020/9/15 15:44
+ * @author LuoJiaHui
+ * @describe
+ */
 export const postKeyValueRequest = (url, params) => {
     return axios({
         method: 'post',
@@ -56,4 +69,42 @@ export const postKeyValueRequest = (url, params) => {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     })
+};
+
+/**
+ * 封装json格式传参
+ * @date 2020/9/15 15:44
+ * @author LuoJiaHui
+ * @describe
+ */
+export const postRequest = (url, params) => {
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params
+    });
+};
+
+export const putRequest = (url, params) => {
+    return axios({
+        method: 'put',
+        url: `${base}${url}`,
+        data: params
+    });
+};
+
+export const getRequest = (url, params) => {
+    return axios({
+        method: 'get',
+        url: `${base}${url}`,
+        data: params
+    });
+};
+
+export const delRequest = (url, params) => {
+    return axios({
+        method: 'delete',
+        url: `${base}${url}`,
+        data: params
+    });
 };
