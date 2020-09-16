@@ -20,7 +20,7 @@
                         <el-submenu :index="index+''" v-for="(item,index) in routes" v-if="!item.hidden"
                                     :key="index">
                             <template slot="title">
-                                <i  style="color: #409eff;margin-right: 10px;" :class="item.iconCls"></i>
+                                <i style="color: #409eff;margin-right: 10px;" :class="item.iconCls"></i>
                                 <span>{{item.name}}</span>
                             </template>
                             <el-menu-item-group>
@@ -32,6 +32,12 @@
                     </el-menu>
                 </el-aside>
                 <el-main>
+                    <el-breadcrumb separator="/" v-if="this.$router.currentRoute.path!==this.login.home">
+                        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+                        <el-breadcrumb-item><a href="/">{{this.$router.currentRoute.name}}</a></el-breadcrumb-item>
+                    </el-breadcrumb>
+
+                    <div class="helloWelcome" v-if="this.$router.currentRoute.path === this.login.home">欢迎来到微人事！</div>
                     <router-view/>
                 </el-main>
             </el-container>
@@ -106,5 +112,13 @@
     .el-dropdown-link {
         display: flex;
         align-items: center;
+    }
+
+    .helloWelcome {
+        text-align: center;
+        font-size: 30px;
+        font-family: 全新硬笔行书简, serif;
+        color: #409eff;
+        padding-top: 50px;
     }
 </style>

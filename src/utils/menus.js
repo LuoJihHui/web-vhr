@@ -31,10 +31,11 @@ export const formatRoutes = (routers) => {
         let fmRouter = {
             path: path,
             component(resolve) {
-                let s = component.substring(0, 3);
                 if (component.startsWith("Home")) {
                     require(['../views/' + component + '.vue'], resolve);
                 } else {
+                    // 让数据库的组件名和前端组件名相同,拼接路径直接跳转即可
+                    let s = component.substring(0, 3);
                     require(['../views/' + s.toLowerCase() + '/' + component + '.vue'], resolve);
                 }
             },
