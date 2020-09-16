@@ -17,7 +17,7 @@
             <el-container>
                 <el-aside width="200px">
                     <el-menu router>
-                        <el-submenu index="1" v-for="(item,index) in $router.options.routes" v-if="!item.hidden"
+                        <el-submenu index="1" v-for="(item,index) in routes" v-if="!item.hidden"
                                     :key="index">
                             <template slot="title">
                                 <i class="el-icon-location"></i>
@@ -47,17 +47,22 @@
                 user: JSON.parse(window.sessionStorage.getItem('user'))
             }
         },
+        computed: {
+            routes() {
+                return this.$store.state.routes;
+            }
+        },
         methods: {
             commandHandler(val) {
-                if (val === 'logout') {
+                if (val === this.login.loginOutUrl) {
                     this.$confirm('此操作将注销登录, 是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.getRequest('/logout');
+                        this.getRequest(this.login.loginOutUrl);
                         window.sessionStorage.removeItem('user');
-                        this.$router.replace('/');
+                        this.$router.replace(this.login.root);
                     }).catch(() => {
                         this.$message({
                             type: 'info',

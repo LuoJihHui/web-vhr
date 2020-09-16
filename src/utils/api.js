@@ -12,10 +12,11 @@ axios.interceptors.response.use(success => {
         return;
     }
     if (data) {
-        if (data.name != null) {
-            Message.success({message: "登录成功"})
-        } else {
-            Message.success({message: data})
+        let url = success.config.url;
+        if (url === '/login') {
+            Message.success({message: '登录成功!'});
+        } else if (url === 'logout') {
+            Message.success({message: '注销成功!'});
         }
     }
     return success.data;

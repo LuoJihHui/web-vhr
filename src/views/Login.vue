@@ -36,11 +36,10 @@
             submitLogin() {
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
-                        this.postKeyValueRequest('/login', this.loginFrom).then(resp => {
-                            console.log(resp);
+                        this.postKeyValueRequest(this.login.loginUrl, this.loginFrom).then(resp => {
                             if (resp) {
                                 window.sessionStorage.setItem('user', JSON.stringify(resp.data));
-                                this.$router.replace('/home');
+                                this.$router.replace(this.login.home);
                             }
                         })
                     } else {
