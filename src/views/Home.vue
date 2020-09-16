@@ -17,10 +17,10 @@
             <el-container>
                 <el-aside width="200px">
                     <el-menu router>
-                        <el-submenu index="1" v-for="(item,index) in routes" v-if="!item.hidden"
+                        <el-submenu :index="index+''" v-for="(item,index) in routes" v-if="!item.hidden"
                                     :key="index">
                             <template slot="title">
-                                <i class="el-icon-location"></i>
+                                <i  style="color: #409eff;margin-right: 10px;" :class="item.iconCls"></i>
                                 <span>{{item.name}}</span>
                             </template>
                             <el-menu-item-group>
@@ -63,6 +63,7 @@
                         this.getRequest(this.login.loginOutUrl);
                         window.sessionStorage.removeItem('user');
                         this.$router.replace(this.login.root);
+                        this.$store.commit("initRoutes", '');
                     }).catch(() => {
                         this.$message({
                             type: 'info',

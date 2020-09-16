@@ -31,19 +31,12 @@ export const formatRoutes = (routers) => {
         let fmRouter = {
             path: path,
             component(resolve) {
-                let path;
-                if (component.startsWith("Emp")) {
-                    path = "emp";
-                } else if (component.startsWith("Per")) {
-                    path = "per";
-                } else if (component.startsWith("Sal")) {
-                    path = "sal";
-                } else if (component.startsWith("Sta")) {
-                    path = "sta";
-                } else if (component.startsWith("Sys")) {
-                    path = "sys";
+                let s = component.substring(0, 3);
+                if (component.startsWith("Home")) {
+                    require(['../views/' + component + '.vue'], resolve);
+                } else {
+                    require(['../views/' + s.toLowerCase() + '/' + component + '.vue'], resolve);
                 }
-                require(['../views/' + path + '/' + component + '.vue'], resolve);
             },
             name: name,
             iconCls: iconCls,

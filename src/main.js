@@ -6,7 +6,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import store from './store';
 import {initMenu} from "./utils/menus";
 import {delRequest, getRequest, postKeyValueRequest, postRequest, putRequest} from "./utils/api";
-import login from './constant/login'
+import login from './constant/login';
+import 'font-awesome/css/font-awesome.min.css';
 
 Vue.prototype.postKeyValueRequest = postKeyValueRequest;
 Vue.prototype.postRequest = postRequest;
