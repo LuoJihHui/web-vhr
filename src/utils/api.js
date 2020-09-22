@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {Message} from 'element-ui';
+import login from "../constant/login";
 
 axios.interceptors.response.use(success => {
     /**
@@ -13,9 +14,9 @@ axios.interceptors.response.use(success => {
     }
     if (data) {
         let url = success.config.url;
-        if (url === '/login') {
+        if (url === login.loginUrl) {
             Message.success({message: '登录成功!'});
-        } else if (url === 'logout') {
+        } else if (url === login.loginOutUrl) {
             Message.success({message: '注销成功!'});
         }
     }
