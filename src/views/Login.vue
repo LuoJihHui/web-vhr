@@ -39,7 +39,9 @@
                         this.postKeyValueRequest(this.login.loginUrl, this.loginFrom).then(resp => {
                             if (resp) {
                                 window.sessionStorage.setItem('user', JSON.stringify(resp.data));
-                                this.$router.replace(this.login.home);
+                                // 获取to的跳转地址，判断后跳转到该地址
+                                let path = this.$route.query.redirect;
+                                this.$router.replace(path === '/' || path === undefined ? this.login.home : path);
                             }
                         })
                     } else {

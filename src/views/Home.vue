@@ -38,7 +38,7 @@
                     </el-breadcrumb>
 
                     <div class="helloWelcome" v-if="this.$router.currentRoute.path === this.login.home">欢迎来到微人事！</div>
-                    <router-view/>
+                    <router-view class="routers"/>
                 </el-main>
             </el-container>
         </el-container>
@@ -83,6 +83,10 @@
 </script>
 
 <style scoped>
+    .routers {
+        margin-top: 15px;
+    }
+
     .homeHeader {
         background-color: #409eff;
         display: flex;

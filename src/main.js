@@ -7,6 +7,7 @@ import store from './store';
 import {initMenu} from "./utils/menus";
 import {delRequest, getRequest, postKeyValueRequest, postRequest, putRequest} from "./utils/api";
 import login from './constant/login';
+import basic from "./constant/sys/basic";
 import 'font-awesome/css/font-awesome.min.css';
 
 Vue.prototype.postKeyValueRequest = postKeyValueRequest;
@@ -15,6 +16,7 @@ Vue.prototype.getRequest = getRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.delRequest = delRequest;
 Vue.prototype.login = login;
+Vue.prototype.basicUrl = basic;
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
@@ -30,9 +32,15 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/') {
         next();
     } else {
-        // 其他页面加载菜单
-        initMenu(router, store);
-        next();
+        // 判断是否登录
+        if (window.sessionStorage.getItem("user")) {
+            // 其他页面加载菜单
+            initMenu(router, store);
+            next();
+        } else {
+            // 未登录,跳登录页
+            next("/?redirect=" + to.path);
+        }
     }
 });
 
