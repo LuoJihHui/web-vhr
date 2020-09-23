@@ -13,6 +13,7 @@
                 <el-table-column prop="ids" label="编号" width="55"></el-table-column>
                 <el-table-column prop="name" label="职位名称" width="180"></el-table-column>
                 <el-table-column prop="createDate" label="创建时间"></el-table-column>
+                <el-table-column prop="updateDate" label="更新时间"></el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑
@@ -24,6 +25,16 @@
                 </el-table-column>
             </el-table>
         </div>
+        <el-dialog title="修改职位" :visible.sync="dialogVisible" width="30%">
+            <div>
+                <el-tag>职位名称</el-tag>
+                <el-input class="updatePositionInput" v-model="updatePosition.name"></el-input>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button size="small" @click="dialogVisible = false">取 消</el-button>
+                <el-button size="small" type="primary" @click="doUpdatePosition">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -35,6 +46,10 @@
                 position: {
                     name: ''
                 },
+                dialogVisible: false,
+                updatePosition: {
+                    name: ''
+                },
                 positions: []
             }
         },
@@ -42,8 +57,7 @@
             addPosition() {
                 if (this.position.name) {
                     this.postRequest(this.basicUrl.position, this.position).then(response => {
-                        if (response.data === true) {
-                            this.$message.success("添加职位成功!");
+                        if (response) {
                             this.loadPosition();
                             this.position.name = '';
                         }
@@ -56,16 +70,26 @@
                 this.getRequest(this.basicUrl.positionList).then(response => {
                     if (response) {
                         let i = 1;
-                        response.data.forEach(data => {
+                        response.forEach(data => {
                             data.ids = i;
                             i++;
                         });
-                        this.positions = response.data;
+                        this.positions = response;
+                    }
+                })
+            },
+            doUpdatePosition() {
+                this.putRequest(this.basicUrl.position, this.updatePosition).then(response => {
+                    if (response) {
+                        this.loadPosition();
+                        this.updatePosition.name = '';
+                        this.dialogVisible = false;
                     }
                 })
             },
             handleEdit(index, data) {
-
+                this.updatePosition = data;
+                this.dialogVisible = true;
             },
             handleDelete(index, data) {
                 this.$confirm('此操作将永久删除【' + data.name + '】, 是否继续?', '提示', {
@@ -75,7 +99,6 @@
                 }).then(() => {
                     this.delRequest(this.basicUrl.position + data.id).then(response => {
                         if (response) {
-                            this.$message.success("删除职位【" + data.name + "】成功!");
                             this.loadPosition();
                         }
                     })
@@ -100,7 +123,12 @@
     }
 
     .posTable {
-        width: 70%;
+        width: 90%;
         margin-top: 15px;
+    }
+
+    .updatePositionInput {
+        width: 200px;
+        margin-left: 10px;
     }
 </style>

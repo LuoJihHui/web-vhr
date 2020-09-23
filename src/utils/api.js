@@ -1,26 +1,22 @@
 import axios from 'axios';
 import {Message} from 'element-ui';
-import login from "../constant/login";
 
 axios.interceptors.response.use(success => {
     /**
      * 业务错误
      */
     let status = success.status;
+    let code = success.data.code;
     let data = success.data.data;
-    if (status && status === 200 && success.data.code === -1) {
-        Message.error({message: data});
+    let msg = success.data.msg;
+    if (status && status === 200 && code !== 0) {
+        Message.error({message: msg});
         return;
     }
-    if (data) {
-        let url = success.config.url;
-        if (url === login.loginUrl) {
-            Message.success({message: '登录成功!'});
-        } else if (url === login.loginOutUrl) {
-            Message.success({message: '注销成功!'});
-        }
+    if (msg && msg !== 'success') {
+        Message.success({message: msg});
     }
-    return success.data;
+    return data;
 }, error => {
     let status = error.response.status;
     if (status === 504 || status === 404) {

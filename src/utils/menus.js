@@ -7,7 +7,7 @@ export const initMenu = (router, store) => {
     }
     getRequest(menu.initUrl).then(data => {
         if (data) {
-            let forRoutes = formatRoutes(data.data);
+            let forRoutes = formatRoutes(data);
             router.addRoutes(forRoutes);
             store.commit('initRoutes', forRoutes);
         }
