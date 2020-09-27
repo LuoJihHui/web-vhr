@@ -21,7 +21,7 @@
         name: "SysBasic",
         data() {
             return {
-                activeName: 'JobLevelManager'
+                activeName: 'AuthorizationManager'
             }
         },
         components: {

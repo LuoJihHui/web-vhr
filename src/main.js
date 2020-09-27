@@ -9,6 +9,7 @@ import {delRequest, getRequest, postKeyValueRequest, postRequest, putRequest} fr
 import login from './constant/login';
 import basic from "./constant/sys/basic";
 import 'font-awesome/css/font-awesome.min.css';
+import menu from "./constant/menu";
 
 Vue.prototype.postKeyValueRequest = postKeyValueRequest;
 Vue.prototype.postRequest = postRequest;
@@ -17,8 +18,9 @@ Vue.prototype.putRequest = putRequest;
 Vue.prototype.delRequest = delRequest;
 Vue.prototype.login = login;
 Vue.prototype.basicUrl = basic;
+Vue.prototype.menu = menu;
 
-Vue.use(ElementUI);
+Vue.use(ElementUI, {size: 'medium'});
 Vue.config.productionTip = false;
 
 /**

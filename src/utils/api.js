@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Message} from 'element-ui';
+import {Notification} from 'element-ui';
 
 axios.interceptors.response.use(success => {
     /**
@@ -10,27 +10,27 @@ axios.interceptors.response.use(success => {
     let data = success.data.data;
     let msg = success.data.msg;
     if (status && status === 200 && code !== 0) {
-        Message.error({message: msg});
+        Notification.error(msg);
         return;
     }
     if (msg && msg !== 'success') {
-        Message.success({message: msg});
+        Notification.success(msg);
     }
     return data;
 }, error => {
     let status = error.response.status;
     if (status === 504 || status === 404) {
-        Message.error({message: '服务器被吃了o(╯□╰)o'})
+        Notification.error('服务器被吃了o(╯□╰)o')
     } else if (status === 403) {
-        Message.error({message: "权限不足,请联系管理员"})
+        Notification.error("权限不足,请联系管理员")
     } else if (status === 401) {
-        Message.error({message: "尚未登录,请登录"})
+        Notification.error("尚未登录,请登录")
     } else {
         let data = error.response.data.data;
         if (data) {
-            Message.error({message: data})
+            Notification.error(data)
         } else {
-            Message.error({message: "未知错误!"})
+            Notification.error("未知错误!")
         }
     }
     return;
