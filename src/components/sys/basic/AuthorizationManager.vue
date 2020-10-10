@@ -75,7 +75,6 @@
             initRoles() {
                 this.getRequest(this.basicUrl.allRoles, this.page).then(res => {
                     if (res) {
-                        console.log(res);
                         this.roles = res.records;
                         this.pageTotal = res.total;
                     }
@@ -93,8 +92,6 @@
             async initTreeChecked(rid) {
                 await this.getRequest(this.basicUrl.menuByRoleId + rid).then(res => {
                     if (res) {
-                        console.log(res);
-                        console.log(this.activeName)
                         this.$set(this, "defaultChecked", res);
                         this.$refs.tree[this.activeName - 1].setCheckedKeys(this.defaultChecked);
                     }
@@ -146,7 +143,7 @@
                         }
                     })
                 }).catch(() => {
-                    this.$message({
+                    this.$notify({
                         type: 'info',
                         message: '已取消删除'
                     });

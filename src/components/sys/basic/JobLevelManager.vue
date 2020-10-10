@@ -14,7 +14,7 @@
                        @click="addJobLevel">添加
             </el-button>
         </div>
-        <div style="width: 55%;margin-top: 15px;">
+        <div style="/*width: 55%;*/margin-top: 15px;">
             <el-table :data="tableData" size="small" border stripe>
                 <el-table-column prop="ids" label="编号" width="45%"></el-table-column>
                 <el-table-column prop="name" label="职称名称" width="120%"></el-table-column>
@@ -162,7 +162,7 @@
                         }
                     })
                 }).catch(() => {
-                    this.$message({
+                    this.$notify({
                         type: 'info',
                         message: '已取消删除'
                     });

@@ -148,7 +148,7 @@
                         }
                     });
                 }).catch(() => {
-                    this.$message({
+                    this.$notify({
                         type: 'info',
                         message: '已取消删除'
                     });
@@ -168,7 +168,7 @@
     }
 
     .posTable {
-        width: 55%;
+        /*width: 80%;*/
         margin-top: 15px;
     }
 

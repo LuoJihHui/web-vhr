@@ -12,4 +12,7 @@ export default {
     menuByRoleId: '/employee/basic/auth/menuIdsByRoleId/', // 根据角色id获取所属菜单
     grantMenuToRole: '/employee/basic/auth/grant/menu', // 授予角色菜单
     role: '/employee/basic/auth/role/', // 添加角色
+
+    // 部门管理相关
+    department: '/system/basic/department/', // 获取组织树
 }

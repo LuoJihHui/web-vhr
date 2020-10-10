@@ -1,5 +1,7 @@
 import axios from 'axios';
 import {Notification} from 'element-ui';
+import router from "../router";
+import login from "../constant/login";
 
 axios.interceptors.response.use(success => {
     /**
@@ -24,7 +26,8 @@ axios.interceptors.response.use(success => {
     } else if (status === 403) {
         Notification.error("权限不足,请联系管理员")
     } else if (status === 401) {
-        Notification.error("尚未登录,请登录")
+        Notification.error("尚未登录,请登录");
+        router.replace(login.root);
     } else {
         let data = error.response.data.data;
         if (data) {

@@ -10,6 +10,7 @@ import login from './constant/login';
 import basic from "./constant/sys/basic";
 import 'font-awesome/css/font-awesome.min.css';
 import menu from "./constant/menu";
+import 'default-passive-events'
 
 Vue.prototype.postKeyValueRequest = postKeyValueRequest;
 Vue.prototype.postRequest = postRequest;
