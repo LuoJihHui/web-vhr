@@ -15,4 +15,7 @@ export default {
 
     // 部门管理相关
     department: '/system/basic/department/', // 获取组织树
+
+    // 操作员管理
+    hrs: '/system/hr', // 获取所有hr
 }
