@@ -1,6 +1,11 @@
 <template>
     <div>
-        <el-form :rules="rules" ref="loginForm" :model="loginFrom" class="loginContainer">
+        <el-form
+                v-loading="loading"
+                element-loading-text="拼命加载中"
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0, 0, 0, 0.8)"
+                :rules="rules" ref="loginForm" :model="loginFrom" class="loginContainer">
             <h3 class="loginTitle">系统登录</h3>
             <el-form-item prop="username">
                 <el-input type="text" v-model="loginFrom.username" auto-complete="off"
@@ -26,6 +31,7 @@
                     password: '123'
                 },
                 checked: true,
+                loading: false,
                 rules: {
                     username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
                     password: [{required: true, message: '请输入密码', trigger: 'blur'}]
@@ -36,7 +42,9 @@
             submitLogin() {
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
+                        this.loading = true;
                         this.postKeyValueRequest(this.login.loginUrl, this.loginFrom).then(resp => {
+                            this.loading = false;
                             if (resp) {
                                 window.sessionStorage.setItem('user', JSON.stringify(resp));
                                 // 获取to的跳转地址，判断后跳转到该地址

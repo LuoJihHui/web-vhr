@@ -18,4 +18,8 @@ export default {
 
     // 操作员管理
     hrs: '/system/hr', // 获取所有hr
+    updateRoles: '/system/hr/roles', // 更新人员角色关系
+
+    // 人员管理
+    employee: '/employee/basic', // 员工信息
 }

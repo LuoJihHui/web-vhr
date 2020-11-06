@@ -8,6 +8,11 @@ axios.interceptors.response.use(success => {
      * 业务错误
      */
     let status = success.status;
+    let type = success.data.type;
+    // 导出直接放行data数据
+    if (type && type === 'application/vnd.ms-excel') {
+        return success;
+    }
     let code = success.data.code;
     let data = success.data.data;
     let msg = success.data.msg;
@@ -108,5 +113,16 @@ export const delRequest = (url, params) => {
         method: 'delete',
         url: `${base}${url}`,
         data: params
+    });
+};
+
+
+export const ExportRequest = (url, params) => {
+    return axios({
+        method: 'get',
+        url: `${base}${url}`,
+        data: params,
+        params: params,
+        responseType: 'blob'
     });
 };
